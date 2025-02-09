@@ -1,0 +1,47 @@
+[versions]
+android-target = "34"
+android-min = "14"
+android-build = "8.7.3"
+
+androidx-core = "1.12.0"
+androidx-annotation = "1.9.1"
+
+kotlin = "2.1.0"
+dokka = "1.9.20"
+jgitver = "0.10.0-rc03"
+ksp = "2.1.0-1.0.29"
+autoService = "1.1.1"
+autoServiceKsp = "1.2.0"
+autoDsl = "2.4.0"
+
+junit = "4.13.2"
+hamcrest = "3.0"
+androidx-test = "1.5.0"
+androidx-test-runner = "1.5.2"
+androidx-junit = "1.1.5"
+nexusPublish = "2.0.0"
+
+[libraries]
+android-build = { module = "com.android.tools.build:gradle", version.ref = "android-build" }
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
+dokka-gradle = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+dokka-core = { module = "org.jetbrains.dokka:dokka-core", version.ref = "dokka" }
+ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+ksp-gradle = { module = "com.google.devtools.ksp:symbol-processing-gradle-plugin", version.ref = "ksp" }
+jgitver = { module = "gradle.plugin.fr.brouillard.oss.gradle:gradle-jgitver-plugin", version.ref = "jgitver" }
+nexusPublish = { module = "io.github.gradle-nexus:publish-plugin", version.ref = "nexusPublish" }
+androidx-core = { module = "androidx.core:core", version.ref = "androidx-core" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
+androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-junit" }
+hamcrest = { module = "org.hamcrest:hamcrest-core", version.ref = "hamcrest" }
+autoService-ksp = { module = "dev.zacsweers.autoservice:auto-service-ksp", version.ref = "autoServiceKsp" }
+autoService-annotations = { module = "com.google.auto.service:auto-service", version.ref = "autoService" }
+autoDsl-processor = {module = "com.faendir.kotlin.autodsl:processor", version.ref = "autoDsl"}
+autoDsl-annotations = {module = "com.faendir.kotlin.autodsl:annotations", version.ref = "autoDsl"}
+
+[bundles]
+androidx-test = ["androidx-test-core", "androidx-test-runner", "androidx-test-rules", "androidx-test-junit", "hamcrest"]

@@ -1,0 +1,91 @@
+---
+sidebar_position: 60
+title: Custom Extensions
+---
+
+import {GradleCode, AndroidCode} from "@theme/Code";
+
+## Implementing an extension
+Create a class extending one of the supported interfaces. 
+
+It has to be `public` and have a zero-argument public constructor (as a result, it cannot be an inner class).
+
+Example:
+
+<AndroidCode>
+
+```kotlin
+class MyAdmin : ReportingAdministrator {
+    init {
+        Log.d("MyAdmin", "MyAdmin was loaded")
+    }
+}
+```
+
+```java
+public MyAdmin implements ReportingAdministrator {
+    public MyAdmin() {
+        Log.d("MyAdmin", "MyAdmin was loaded");
+    }
+}
+```
+
+</AndroidCode>
+
+| Supported Extensions | Use Case |
+| --- | --- |
+| [`Collector`](pathname:///javadoc/latest/acra/org.acra.collector/-collector) | Collect additional custom data not covered by acra |
+| [`ApplicationStartupCollector`](pathname:///javadoc/latest/acra/org.acra.collector/-application-startup-collector) | Collector which is also called at startup |
+| [`ReportInteraction`](pathname:///javadoc/latest/acra/org.acra.interaction/-report-interaction) | Usually not needed, as the provided options (dialog, notification, toast) cover all reasonable choices |
+| [`ReportingAdministrator`](pathname:///javadoc/latest/acra/org.acra.config/-reporting-administrator) | Control when reports are generated and when the application should be stopped |
+| [`ReportSenderFactory`](pathname:///javadoc/latest/acra/org.acra.sender/-report-sender-factory) | Register custom report senders |
+| [`ConfigurationBuilderFactory`](pathname:///javadoc/latest/acra/org.acra.config/-configuration-builder-factory) | Register custom configurations |
+| [`SenderSchedulerFactory`](pathname:///javadoc/latest/acra/org.acra.scheduler/-sender-scheduler-factory) | Register custom sender scheduler, e.g. to prevent report sending based on custom conditions |
+| [`StartupProcessor`](pathname:///javadoc/latest/acra/org.acra.startup/-startup-processor)  | Do something ACRA related on app start |
+## Registering an extension
+Choose one of the following alternatives:
+### By annotation
+
+Add the following dependencies:
+<GradleCode>
+
+```kotlin title="build.gradle.kts"
+compileOnly("com.google.auto.service:auto-service-annotations:1.1.1")
+//either for java sources:
+annotationProcessor("com.google.auto.service:auto-service:1.1.1")
+//or for kotlin sources (requires kapt gradle plugin):
+kapt("com.google.auto.service:auto-service:1.1.1")
+//or for ksp(requires ksp gradle plugin):
+ksp("dev.zacsweers.autoservice:auto-service-ksp:1.1.0")
+ksp("com.google.auto.service:auto-service:1.1.1")
+```
+
+```groovy title="build.gradle"
+compileOnly "com.google.auto.service:auto-service-annotations:1.1.1"
+//either for java sources:
+annotationProcessor "com.google.auto.service:auto-service:1.1.1"
+//or for kotlin sources (requires kapt gradle plugin):
+kapt "com.google.auto.service:auto-service:1.1.1"
+//or for ksp(requires ksp gradle plugin):
+ksp "dev.zacsweers.autoservice:auto-service-ksp:1.1.0"
+ksp "com.google.auto.service:auto-service:1.1.1"
+```
+
+</GradleCode>
+
+Then annotate your extension with the following:
+
+<AndroidCode>
+
+```kotlin
+@AutoService(<ExtensionInterface>::class)
+```
+
+```java
+@AutoService(<ExtensionInterface>.class)
+```
+
+</AndroidCode>
+
+### By file
+See [ServiceLoader](https://developer.android.com/reference/java/util/ServiceLoader.html) for manual service registration
